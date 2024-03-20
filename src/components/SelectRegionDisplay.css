@@ -1,0 +1,128 @@
+/* 배경 테두리 */
+.select-region-background {
+  position: absolute;
+  top: 30px;
+  left: calc(50% - 350px);
+
+  width: 700px;
+  height: 650px;
+
+  border: 5px solid #a59583;
+  border-radius: 10px;
+
+  box-shadow: 5px 5px 20px #666;
+}
+
+.select-region-background .select-region-name {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #444;
+
+  position: relative;
+  top: 20px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.select-region-background .select-region-value {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #444;
+
+  position: relative;
+  top: 30px;
+
+  display: flex;
+  justify-content: center;
+
+  z-index: 2;
+}
+
+.select-region-background .select-region-state-text {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #444;
+
+  position: relative;
+  top: -50px;
+
+  display: flex;
+  justify-content: center;
+
+  z-index: 2;
+}
+
+.button-group {
+  position: relative;
+  top: -20px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/* 미세먼지 상태 이미지 */
+.state0-img-sun {
+  position: absolute;
+  top: 0px;
+  left: 176px;
+
+  width: 160px;
+}
+
+.state0-img-etc {
+  position: absolute;
+  top: 6px;
+  left: 178px;
+
+  width: 340px;
+}
+
+.state1-img-car {
+  position: absolute;
+  top: 235px;
+  left: 370px;
+
+  width: 110px;
+}
+
+.state1-img-etc {
+  position: absolute;
+  top: 6px;
+  left: 178px;
+
+  width: 340px;
+}
+
+.state2-img-cloud {
+  position: absolute;
+  top: 50px;
+  left: 200px;
+
+  width: 300px;
+}
+
+.state2-img-etc {
+  position: absolute;
+  top: 140px;
+  left: 315px;
+
+  width: 90px;
+}
+
+.state3-img-smog {
+  position: absolute;
+  top: 25px;
+  left: 240px;
+
+  width: 300px;
+}
+
+.state3-img-etc {
+  position: absolute;
+  top: 190px;
+  left: 400px;
+
+  width: 104px;
+}
