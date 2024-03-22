@@ -14,7 +14,7 @@ function MainDisplay({ tabIndex }) {
 
   // 전국 지도의 해당 지역 수치에 맞는 이미지 반환.
   function getRegionImg(region, value) {
-    return `/images/${region + getPM10State(value)}.png`;
+    return `https://wjdguswns123.github.io/Finedust_Info/images/${region + getPM10State(value)}.png`;
   }
 
   // 전국 지도의 해당 지역 그리기.

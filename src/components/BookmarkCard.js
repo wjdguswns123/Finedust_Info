@@ -30,13 +30,13 @@ const BookmarkCard = ({ bookmark, index }) => {
     switch(state)
     {
       case 0:
-        return "/images/state_icon0.png";
+        return "https://wjdguswns123.github.io/Finedust_Info/images/state_icon0.png";
       case 1:
-        return "/images/state_icon1.png";
+        return "https://wjdguswns123.github.io/Finedust_Info/images/state_icon1.png";
       case 2:
-        return "/images/state_icon2.png";
+        return "https://wjdguswns123.github.io/Finedust_Info/images/state_icon2.png";
       case 3:
-        return "/images/state_icon3.png";
+        return "https://wjdguswns123.github.io/Finedust_Info/images/state_icon3.png";
     }
   }
 

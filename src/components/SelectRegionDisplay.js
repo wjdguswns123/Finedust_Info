@@ -89,29 +89,29 @@ function SelectRegionDisplay() {
       case 0:
         return (
           <div>
-            <img className="state0-img-sun" src="/images/base_state0_sun.png" ref={sunRef} />
-            <img className="state0-img-etc" src="/images/base_state0_1.png" />
+            <img className="state0-img-sun" src="https://wjdguswns123.github.io/Finedust_Info/images/base_state0_sun.png" ref={sunRef} />
+            <img className="state0-img-etc" src="https://wjdguswns123.github.io/Finedust_Info/images/base_state0_1.png" />
           </div>
         );
       case 1:
         return (
           <div>
-            <img className="state1-img-car" src="/images/base_state1_car.png" ref={carRef} />
-            <img className="state1-img-etc" src="/images/base_state1_1.png" />
+            <img className="state1-img-car" src="https://wjdguswns123.github.io/Finedust_Info/images/base_state1_car.png" ref={carRef} />
+            <img className="state1-img-etc" src="https://wjdguswns123.github.io/Finedust_Info/images/base_state1_1.png" />
           </div>
         );
       case 2:
         return (
           <div>
-            <img className="state2-img-cloud" src="/images/base_state2_cloud.png" ref={state3CloudRef} />
-            <img className="state2-img-etc" src="/images/base_state2_1.png" />
+            <img className="state2-img-cloud" src="https://wjdguswns123.github.io/Finedust_Info/images/base_state2_cloud.png" ref={state3CloudRef} />
+            <img className="state2-img-etc" src="https://wjdguswns123.github.io/Finedust_Info/images/base_state2_1.png" />
           </div>
         );
       case 3:
         return (
           <div>
-            <img className="state3-img-smog" src="/images/base_state3_smog.png" ref={state4SmogRef} />
-            <img className="state3-img-etc" src="/images/base_state3_1.png" />
+            <img className="state3-img-smog" src="https://wjdguswns123.github.io/Finedust_Info/images/base_state3_smog.png" ref={state4SmogRef} />
+            <img className="state3-img-etc" src="https://wjdguswns123.github.io/Finedust_Info/images/base_state3_1.png" />
           </div>
         );
     }
