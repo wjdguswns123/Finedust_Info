@@ -1,16 +1,16 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBookmark, getIsBookmarked, getMyRegion, getIsMyRegion, setMyRegion } from '../datas/localStorageDatas';
+import { setBookmark, getIsBookmarked, getMyRegion, getIsMyRegion, setMyRegion } from '../../datas/localStorageDatas';
 
 import _ from 'lodash';
 import { gsap } from "gsap";
 import styled from 'styled-components';
-import { getPM10State } from '../utils';
+import { getPM10State } from '../../utils';
 
-import './SelectRegionDisplay.css';
+import './SelectRegionPage.css';
 
 // 현재 선택 지역 미세먼지 정보 출력.
-function SelectRegionDisplay() {
+function SelectRegionPage() {
   const [bookmarked, SetBookmarked] = useState(false);
   const [baseRegioned, SetbaseRegioned] = useState(false);
 
@@ -145,7 +145,7 @@ function SelectRegionDisplay() {
   );
 }
 
-export default SelectRegionDisplay;
+export default SelectRegionPage;
 
 // 선택한 지역에 따른 배경 색 설정.
 const BackgroundColor = styled.div`
