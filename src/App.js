@@ -1,13 +1,15 @@
+import './App.css';
+import Layout from './components/Layout'
+import SelectRegionPage from './components/pages/SelectRegionPage';
+import WholeCountryPage from './components/pages/WholeCountryPage';
+import BookmarkPage from './components/pages/BookmarkPage';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import './App.css';
-import MainDisplay from './components/MainDisplay'
-import MenuTab from './components/MenuTab'
-import SelectRegion from './components/SelectRegion'
 import { getLocalData } from './actions/fetchData';
 import { getMyRegion, setMyRegion } from './datas/localStorageDatas';
 import { getInitMyRegion } from './utils';
 import { useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   const [currentTab, SetCurrentTab] = useState(0);
@@ -75,11 +77,17 @@ function App() {
   }
 
   return (
-      <div className="App">
-        <MainDisplay tabIndex={currentTab} />
-        <MenuTab onTabClick={onTabClick} />
-        <SelectRegion onTabClick={onTabClick} />
-      </div>
+    <div className="App">
+      {currentTab !== 0 && (
+          <Routes>
+            <Route path="/" element={<Layout onTabClick={onTabClick} />}>
+              <Route index element={<SelectRegionPage />} />
+              <Route path="wholeCountryPage" element={<WholeCountryPage />} />
+              <Route path="bookmarkPage" element={<BookmarkPage />} />
+            </Route>
+          </Routes>
+        )}
+    </div>
   );
 }
 
