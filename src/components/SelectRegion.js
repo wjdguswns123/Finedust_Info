@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import './SelectRegion.css';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { getLocalData } from '../actions/fetchData';
 import styled from 'styled-components';
 
-const SelectRegion = ({onTabClick}) => {
+const SelectRegion = () => {
   const [isShowDropdownMenu, SetIsShowDropdownMenu] = useState(false);
   const [currentMetro, SetCurrentMetro] = useState("");
   const [currentLocalNames, SetCurrentLocalNames] = useState([]);
   const [currentLocalDatas, SetCurrentLocalDatas] = useState([]);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const localData = useSelector(state => state.localData);
 
   // 서버에서 내려받은 세부 지역 데이터 스토어에 저장.
@@ -42,7 +44,7 @@ const SelectRegion = ({onTabClick}) => {
     const selectData = currentLocalDatas.find((data) => data.cityName === region);
     dispatch({ type: "SELECT_REGION", value: selectData });
     SetIsShowDropdownMenu(!isShowDropdownMenu);
-    onTabClick(4);
+    navigate("/");
   }
 
   // 선택된 광역 지역의 세부 지역 드롭다운 메뉴 출력.

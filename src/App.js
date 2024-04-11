@@ -8,13 +8,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getLocalData } from './actions/fetchData';
 import { getMyRegion, setMyRegion } from './datas/localStorageDatas';
 import { getInitMyRegion } from './utils';
-import { useNavigate } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
 
 function App() {
   const [currentTab, SetCurrentTab] = useState(0);
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const localDatas = useSelector(state => state.localData);
 
@@ -35,52 +33,11 @@ function App() {
     });
   }
 
-  // 데이터 요청.
-  function requestData(tabIndex, renderCallback) {
-    switch (tabIndex) {
-      case 1:
-        {
-          // 내 지역 보기.
-          navigate("/");
-          renderCallback();
-        }
-        break;
-      case 2:
-        {
-          // 전국 지도 보기.
-          navigate("/wholeCountryPage");
-          renderCallback();
-        }
-        break;
-      case 3:
-        {
-          // 즐겨찾기 보기.
-          navigate("/bookmarkPage");
-          renderCallback();
-        }
-        break;
-      case 4:
-        {
-          // 선택 지역 보기.
-          navigate("/");
-          renderCallback();
-        }
-        break;
-    }
-  }
-
-  // 메뉴 텝 클릭 처리.
-  function onTabClick(tabIndex) {
-    if (currentTab !== tabIndex) {
-      requestData(tabIndex, () => SetCurrentTab(tabIndex));
-    }
-  }
-
   return (
     <div className="App">
       {currentTab !== 0 && (
           <Routes>
-            <Route path="/" element={<Layout onTabClick={onTabClick} />}>
+            <Route path="/" element={<Layout />}>
               <Route index element={<SelectRegionPage />} />
               <Route path="wholeCountryPage" element={<WholeCountryPage />} />
               <Route path="bookmarkPage" element={<BookmarkPage />} />

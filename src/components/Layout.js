@@ -3,19 +3,19 @@ import SelectRegion from './SelectRegion';
 import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
 
-const layout = (props) => {
+const Layout = () => {
   return (
     <>
       <ContentContainer className="display-width">
         <Outlet />
       </ContentContainer>
-      <MenuTab onTabClick={props.onTabClick} />
-      <SelectRegion onTabClick={props.onTabClick} />
+      <MenuTab />
+      <SelectRegion />
     </>
   );
 }
 
-export default layout;
+export default Layout;
 
 const ContentContainer = styled.main`
   height: calc(100vh - 70px);

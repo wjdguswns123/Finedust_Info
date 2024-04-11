@@ -46,7 +46,7 @@ const BookmarkCard = ({ bookmark, index }) => {
       <div className="local-name">{data.cityName}</div>
       <StateText state={state} className="dust-value">{data.pm10Value}</StateText>
       <img src={getStateIcon()} alt="" className="state-img"></img>
-      <StateText state={state} className="state-text">{getStateText(data.pm10Value)}</StateText>
+      <StateText state={state} className="state-text">{getStateText()}</StateText>
     </li>
   );
 }
