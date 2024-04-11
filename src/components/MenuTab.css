@@ -9,6 +9,13 @@
   flex-direction: row;
 }
 
+@media (max-width: 700px) {
+  .menu-tab {
+    width: 500px;
+    right: calc(50% - 250px);
+  }
+}
+
 .menu-tab-button {
   padding: 10px 0;
   flex-grow: 1;
