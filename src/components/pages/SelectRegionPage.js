@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBookmark, getIsBookmarked, getMyRegion, getIsMyRegion, setMyRegion } from '../../datas/localStorageDatas';
 
@@ -17,6 +17,15 @@ function SelectRegionPage() {
   const dispatch = useDispatch();
   const currentLocalRegion = useSelector(state => state.currentLocalRegion);
   const localDatas = useSelector(state => state.localData);
+
+  useEffect(() => {
+    // 현재 선택 지역이 없으면, 내 지역 정보 보기.
+    if (_.isEmpty(currentLocalRegion)) {
+      const myRegion = getMyRegion();
+      const data = localDatas.find(data => data.sidoName === myRegion.metro && data.cityName === myRegion.local);
+      dispatch({ type: "SELECT_REGION", value: data });
+    }
+  }, []);
 
   useLayoutEffect(() => {
     gsap.to(sunRef.current, 4, {
@@ -43,13 +52,6 @@ function SelectRegionPage() {
       repeat: -1,
     });
   });
-
-  // 현재 선택 지역이 없으면, 내 지역 정보 보기.
-  if (_.isEmpty(currentLocalRegion)) {
-    const myRegion = getMyRegion();
-    const data = localDatas.find(data => data.sidoName === myRegion.metro && data.cityName === myRegion.local);
-    dispatch({ type: "SELECT_REGION", value: data });
-  }
 
   // 현재 지역이 즐겨찾기 한 지역인지 확인.
   const isBookmarked = getIsBookmarked(currentLocalRegion);
@@ -84,7 +86,7 @@ function SelectRegionPage() {
   const carRef = useRef();
   const state3CloudRef = useRef();
   const state4SmogRef = useRef();
-  function drawStateImage () {
+  function drawStateImage() {
     switch (state) {
       case 0:
         return (
