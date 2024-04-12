@@ -4,7 +4,7 @@ import { getPM10State } from '../utils';
 import { useSelector } from 'react-redux';
 
 // 지역 정보 카드 출력.
-const BookmarkCard = ({ bookmark, index }) => {
+const BookmarkCard = ({ bookmark }) => {
   const localDatas = useSelector(state => state.localData);
 
   const data = localDatas.find(data => data.sidoName === bookmark.metro && data.cityName === bookmark.local);
@@ -41,12 +41,12 @@ const BookmarkCard = ({ bookmark, index }) => {
   }
 
   return (
-    <li key={index} className="bookmark-card">
+    <li className="bookmark-card">
       <div className="metro-name">{data.sidoName}</div>
       <div className="local-name">{data.cityName}</div>
-      <StateText state={state} className="dust-value">{data.pm10Value}</StateText>
+      <StateText $state={state} className="dust-value">{data.pm10Value}</StateText>
       <img src={getStateIcon()} alt="" className="state-img"></img>
-      <StateText state={state} className="state-text">{getStateText()}</StateText>
+      <StateText $state={state} className="state-text">{getStateText()}</StateText>
     </li>
   );
 }
@@ -55,7 +55,7 @@ export default BookmarkCard;
 
 const StateText = styled.div`
   color: ${(props) => {
-    switch (props.state) {
+    switch (props.$state) {
       case 0:
         return "#24afff";
       case 1:

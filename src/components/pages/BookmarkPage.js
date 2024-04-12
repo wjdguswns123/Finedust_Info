@@ -48,7 +48,7 @@ const BookmarkPage = () => {
       return (<ul className="bookmark-cards">
         {bookmarks.map((bookmark, index) => {
           return (
-            <BookmarkCard bookmark={bookmark} index={index} />);
+            <BookmarkCard key={index} bookmark={bookmark} />);
         })}
       </ul>);
     }

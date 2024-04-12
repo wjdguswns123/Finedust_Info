@@ -119,21 +119,21 @@ function SelectRegionPage() {
 
   return (
     <div>
-      <BackgroundColor state={state} className="select-region-background">
+      <BackgroundColor $state={state} className="select-region-background">
         <span className="select-region-name">{currentLocalRegion.cityName}</span>
         <span className="select-region-value">{currentLocalRegion.pm10Value}</span>
-        <StateImage state={state} alt="">
+        <StateImage alt="">
           {drawStateImage()}
         </StateImage>
         <span className="select-region-state-text">{stateText}</span>
         <div className="button-group">
-          <BookmarkButton bookmarked={isBookmarked} onClick={() => {
+          <BookmarkButton $bookmarked={isBookmarked} onClick={() => {
             setBookmark(!bookmarked, currentLocalRegion.sidoName, currentLocalRegion.cityName);
             SetBookmarked(!bookmarked);
           }}>
             <BookmarkButtonImage className="material-symbols-outlined bookmark-star">kid_star</BookmarkButtonImage>
           </BookmarkButton>
-          <MyRegionButton myRegion={isMyRegion} className="base-button" onClick={() => {
+          <MyRegionButton $myRegion={isMyRegion} className="base-button" onClick={() => {
             if (!isMyRegion) {
               setMyRegion(currentLocalRegion.sidoName, currentLocalRegion.cityName);
               SetbaseRegioned(true);
@@ -150,7 +150,7 @@ export default SelectRegionPage;
 // 선택한 지역에 따른 배경 색 설정.
 const BackgroundColor = styled.div`
   background-image: ${(props) => {
-    switch (props.state) {
+    switch (props.$state) {
       case 0:
         return "linear-gradient(to top, #71dfff, #def1fd)";
       case 1:
@@ -177,8 +177,8 @@ const BookmarkButton = styled.button`
   width: 150px;
   height: 60px;
 
-  background-color: ${props => props.bookmarked ? "#fde69b" : "#fff"};
-  border: 5px solid ${props => props.bookmarked ? "#6f4d12" : "#777"};
+  background-color: ${props => props.$bookmarked ? "#fde69b" : "#fff"};
+  border: 5px solid ${props => props.$bookmarked ? "#6f4d12" : "#777"};
   border-radius: 8px;
 `;
 
@@ -199,7 +199,7 @@ const MyRegionButton = styled.button`
   font-weight: 700;
   color: #333;
 
-  background-color: ${props => props.myRegion ? "#fde69b" : "#fff"};
-  border: 5px solid ${props => props.myRegion ? "#6f4d12" : "#777"};
+  background-color: ${props => props.$myRegion ? "#fde69b" : "#fff"};
+  border: 5px solid ${props => props.$myRegion ? "#6f4d12" : "#777"};
   border-radius: 8px;
 `;

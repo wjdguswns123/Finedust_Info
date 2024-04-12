@@ -60,7 +60,7 @@ const SelectRegion = () => {
   // 지역 선택 드롭다운 메뉴 출력.
   function drawSelectRegionDropdownMenu() {
     return (
-      <Dropdown isShow={isShowDropdownMenu}>
+      <Dropdown $isShow={isShowDropdownMenu}>
         <ul className="select-region-dropdown-list">
           <li className="dropdown-list-item" onClick={() => onSelectMetroRegion("서울")}>서울</li>
           <li className="dropdown-list-item" onClick={() => onSelectMetroRegion("부산")}>부산</li>
@@ -105,7 +105,7 @@ const SelectRegion = () => {
 export default SelectRegion;
 
 const Dropdown = styled.div`
-  display: ${props => props.isShow ? "flex" : "none"};
+  display: ${props => props.$isShow ? "flex" : "none"};
   flex-direction: row;
 
   margin-top: 3px;

@@ -21,7 +21,7 @@ const WholeCountryPage = () => {
         <img className={`map-image ${region}`} src={getRegionImg(region, value)}></img>
         <div className={`map-banner ${region}`}>
           <div className="region-name">{name}</div>
-          <PMValue state={getPM10State(value)} className="pm-value">{value}</PMValue>
+          <PMValue $state={getPM10State(value)} className="pm-value">{value}</PMValue>
         </div>
       </div>
     );
@@ -62,7 +62,7 @@ export default WholeCountryPage;
 
 const PMValue = styled.div`
   background-color: ${(props) => {
-    switch (props.state) {
+    switch (props.$state) {
       case 0:
         return "#24afff";
       case 1:
