@@ -4,10 +4,20 @@ import { getPM10State } from '../../utils';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { getMetropolitanData } from '../../actions/fetchData';
+import { useEffect } from 'react';
 
 const WholeCountryPage = () => {
   const dispatch = useDispatch();
   const metropolitanData = useSelector(state => state.metropolitanData);
+
+  useEffect(() => {
+    if (_.isEmpty(metropolitanData)) {
+      // 전국 미세먼지 데이터가 스토어에 없으면, 데이터 요청.
+      getMetropolitanData((data) => {
+        dispatch({ type: "SET_DATA", value: data[0] });
+      });
+    }
+  }, []);
 
   // 전국 지도의 해당 지역 수치에 맞는 이미지 반환.
   function getRegionImg(region, value) {
@@ -27,35 +37,27 @@ const WholeCountryPage = () => {
     );
   }
 
-  if (_.isEmpty(metropolitanData)) {
-    // 전국 미세먼지 데이터가 스토어에 없으면, 데이터 요청.
-    getMetropolitanData((data) => {
-      dispatch({ type: "SET_DATA", value: data[0] });
-    });
-  }
-  else {
-    return (
-      <div className="map-background">
-        {drawRegion("seoul", "서울", metropolitanData.seoul)}
-        {drawRegion("incheon", "인천", metropolitanData.incheon)}
-        {drawRegion("gyeonggi", "경기", metropolitanData.gyeonggi)}
-        {drawRegion("gangwon", "강원", metropolitanData.gangwon)}
-        {drawRegion("chungbuk", "충북", metropolitanData.chungbuk)}
-        {drawRegion("chungnam", "충남", metropolitanData.chungnam)}
-        {drawRegion("daejeon", "대전", metropolitanData.daejeon)}
-        {drawRegion("sejong", "세종", metropolitanData.sejong)}
-        {drawRegion("gyeongbuk", "경북", metropolitanData.gyeongbuk)}
-        {drawRegion("daegu", "대구", metropolitanData.daegu)}
-        {drawRegion("gyeongnam", "경남", metropolitanData.gyeongnam)}
-        {drawRegion("busan", "부산", metropolitanData.busan)}
-        {drawRegion("ulsan", "울산", metropolitanData.ulsan)}
-        {drawRegion("jeonbuk", "전북", metropolitanData.jeonbuk)}
-        {drawRegion("jeonnam", "전남", metropolitanData.jeonnam)}
-        {drawRegion("gwangju", "광주", metropolitanData.gwangju)}
-        {drawRegion("jeju", "제주", metropolitanData.jeju)}
-      </div>
-    );
-  }
+  return !_.isEmpty(metropolitanData) && (
+    <div className="map-background">
+      {drawRegion("seoul", "서울", metropolitanData.seoul)}
+      {drawRegion("incheon", "인천", metropolitanData.incheon)}
+      {drawRegion("gyeonggi", "경기", metropolitanData.gyeonggi)}
+      {drawRegion("gangwon", "강원", metropolitanData.gangwon)}
+      {drawRegion("chungbuk", "충북", metropolitanData.chungbuk)}
+      {drawRegion("chungnam", "충남", metropolitanData.chungnam)}
+      {drawRegion("daejeon", "대전", metropolitanData.daejeon)}
+      {drawRegion("sejong", "세종", metropolitanData.sejong)}
+      {drawRegion("gyeongbuk", "경북", metropolitanData.gyeongbuk)}
+      {drawRegion("daegu", "대구", metropolitanData.daegu)}
+      {drawRegion("gyeongnam", "경남", metropolitanData.gyeongnam)}
+      {drawRegion("busan", "부산", metropolitanData.busan)}
+      {drawRegion("ulsan", "울산", metropolitanData.ulsan)}
+      {drawRegion("jeonbuk", "전북", metropolitanData.jeonbuk)}
+      {drawRegion("jeonnam", "전남", metropolitanData.jeonnam)}
+      {drawRegion("gwangju", "광주", metropolitanData.gwangju)}
+      {drawRegion("jeju", "제주", metropolitanData.jeju)}
+    </div>
+  );
 }
 
 export default WholeCountryPage;
