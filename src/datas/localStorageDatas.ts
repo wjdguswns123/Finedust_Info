@@ -28,7 +28,7 @@ export const getBookmark = (): BookMark[] => {
 }
 
 // 즐겨찾기 지역인지 확인.
-export const getIsBookmarked = (data: LocalData) => {
+export const getIsBookmarked = (data: LocalData): boolean => {
   const bookmarks = JSON.parse(localStorage.getItem("bookmark") || '');
   return bookmarks !== null && bookmarks.some((b: BookMark) => b.metro === data.sidoName && b.local === data.cityName);
 }
