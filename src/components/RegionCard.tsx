@@ -2,7 +2,7 @@ import './RegionCard.css';
 // import tempAlert from "../images/tempAlret.png";
 // import tempAlert1 from "../images/tempAlret1.png";
 
-function getStateIcon(value)
+function getStateIcon(value: number)
 {
   if(value > 50)
   {
@@ -13,7 +13,10 @@ function getStateIcon(value)
 }
 
 // 지역 정보 카드 출력.
-const RegionCard = ({regionName, value}) => {
+const RegionCard = ({regionName, value}: {
+  regionName: string,
+  value: number
+}) => {
   return (
     <div className="region-card">
       <div className="region-name">{regionName}</div>

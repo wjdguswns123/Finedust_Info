@@ -4,25 +4,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getLocalData } from '../actions/fetchData';
 import styled from 'styled-components';
+import { LocalData } from '../types';
+import { RootState } from '../reducers';
 
 const SelectRegion = () => {
   const [isShowDropdownMenu, SetIsShowDropdownMenu] = useState(false);
   const [currentMetro, SetCurrentMetro] = useState("");
-  const [currentLocalNames, SetCurrentLocalNames] = useState([]);
-  const [currentLocalDatas, SetCurrentLocalDatas] = useState([]);
+  const [currentLocalNames, SetCurrentLocalNames] = useState<string[]>([]);
+  const [currentLocalDatas, SetCurrentLocalDatas] = useState<LocalData[]>([]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const localData = useSelector(state => state.localData);
+  const localData = useSelector((state: RootState) => state.localData);
 
   // 서버에서 내려받은 세부 지역 데이터 스토어에 저장.
-  const addLocalData = (data) => {
+  const addLocalData = (data: LocalData[]) => {
     const newDatas = [...localData, data];
     dispatch({ type: "ADD_DATA", value: newDatas });
   }
 
   // 드롭다운 메뉴의 광역 지역 아이템 선택 처리.
-  function onSelectMetroRegion(metro) {
+  function onSelectMetroRegion(metro: string) {
     if(metro !== currentMetro)
     {
       getLocalData(metro, (datas) => {
@@ -40,7 +42,7 @@ const SelectRegion = () => {
   }
 
   // 드롭다운 메뉴의 세부 지역 아이템 선택 처리.
-  function onSelectRegionItem(region) {
+  function onSelectRegionItem(region: string) {
     const selectData = currentLocalDatas.find((data) => data.cityName === region);
     dispatch({ type: "SELECT_REGION", value: selectData });
     SetIsShowDropdownMenu(!isShowDropdownMenu);
@@ -60,7 +62,7 @@ const SelectRegion = () => {
   // 지역 선택 드롭다운 메뉴 출력.
   function drawSelectRegionDropdownMenu() {
     return (
-      <Dropdown $isShow={isShowDropdownMenu}>
+      <Dropdown isShow={isShowDropdownMenu}>
         <ul className="select-region-dropdown-list">
           <li className="dropdown-list-item" onClick={() => onSelectMetroRegion("서울")}>서울</li>
           <li className="dropdown-list-item" onClick={() => onSelectMetroRegion("부산")}>부산</li>
@@ -104,8 +106,8 @@ const SelectRegion = () => {
 
 export default SelectRegion;
 
-const Dropdown = styled.div`
-  display: ${props => props.$isShow ? "flex" : "none"};
+const Dropdown = styled.div<{ isShow: boolean }>`
+  display: ${props => props.isShow ? "flex" : "none"};
   flex-direction: row;
 
   margin-top: 3px;

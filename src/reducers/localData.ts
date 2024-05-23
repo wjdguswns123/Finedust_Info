@@ -1,10 +1,18 @@
+import { LocalData } from "../types";
+
+// 액션 매개변수 타입.
+type paramAction = {
+  type: string,
+  value: LocalData[]
+};
+
 // 세부 지역 미세먼지 데이터 리듀서.
-const localData = (state = [], action) => {
+const localData = (state: LocalData[] = [], action: paramAction) => {
   switch(action.type)
   {
     case "ADD_DATA":
       let currentDataTime = "";
-      let newDatas = [];
+      let newDatas: LocalData[] = [];
       action.value.map((data) => {
         if(currentDataTime === "")
         {

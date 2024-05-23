@@ -3,10 +3,12 @@ import { getBookmark } from '../../datas/localStorageDatas';
 import BookmarkCard from '../BookmarkCard';
 import { getLocalData } from '../../actions/fetchData';
 import { useDispatch, useSelector } from 'react-redux';
+import { LocalData } from '../../types';
+import { RootState } from '../../reducers';
 
 const BookmarkPage = () => {
   const dispatch = useDispatch();
-  const localDatas = useSelector(state => state.localData);
+  const localDatas = useSelector((state: RootState) => state.localData);
 
   // 즐겨찾기 등록된 지역의 데이터가 store에 없으면 데이터 요청.
   const bookmarks = getBookmark();
@@ -14,7 +16,7 @@ const BookmarkPage = () => {
   if (bookmarks !== null && bookmarks.length > 0) {
     let count = 0;
     bookmarks.map((bookmark) => {
-      const data = localDatas.find(data => data.sidoName === bookmark.metro && data.cityName === bookmark.local);
+      const data = localDatas.find((data: LocalData) => data.sidoName === bookmark.metro && data.cityName === bookmark.local);
       if (data === undefined) {
         count += 1;
         getLocalData(bookmark.metro, (data) => {

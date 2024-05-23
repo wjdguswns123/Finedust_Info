@@ -2,15 +2,19 @@ import './BookmarkCard.css';
 import styled from 'styled-components';
 import { getPM10State } from '../utils';
 import { useSelector } from 'react-redux';
+import { RootState } from '../reducers';
+import { BookMark } from '../types';
 
 // 지역 정보 카드 출력.
-const BookmarkCard = ({ bookmark }) => {
-  const localDatas = useSelector(state => state.localData);
+const BookmarkCard = ({ bookmark }: {
+  bookmark: BookMark
+}) => {
+  const localDatas = useSelector((state: RootState) => state.localData);
 
   const data = localDatas.find(data => data.sidoName === bookmark.metro && data.cityName === bookmark.local);
 
   // 미세먼지 상태 텍스트.
-  const state = getPM10State(data.pm10Value);
+  const state = getPM10State(data?.pm10Value || 0);
   function getStateText() {
     switch(state)
     {
@@ -42,20 +46,20 @@ const BookmarkCard = ({ bookmark }) => {
 
   return (
     <li className="bookmark-card">
-      <div className="metro-name">{data.sidoName}</div>
-      <div className="local-name">{data.cityName}</div>
-      <StateText $state={state} className="dust-value">{data.pm10Value}</StateText>
+      <div className="metro-name">{data?.sidoName}</div>
+      <div className="local-name">{data?.cityName}</div>
+      <StateText state={state} className="dust-value">{data?.pm10Value}</StateText>
       <img src={getStateIcon()} alt="" className="state-img"></img>
-      <StateText $state={state} className="state-text">{getStateText()}</StateText>
+      <StateText state={state} className="state-text">{getStateText()}</StateText>
     </li>
   );
 }
 
 export default BookmarkCard;
 
-const StateText = styled.div`
+const StateText = styled.div<{ state: number }>`
   color: ${(props) => {
-    switch (props.$state) {
+    switch (props.state) {
       case 0:
         return "#24afff";
       case 1:

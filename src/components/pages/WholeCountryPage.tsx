@@ -5,33 +5,34 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { getMetropolitanData } from '../../actions/fetchData';
 import { useEffect } from 'react';
+import { RootState } from '../../reducers';
 
 const WholeCountryPage = () => {
   const dispatch = useDispatch();
-  const metropolitanData = useSelector(state => state.metropolitanData);
+  const metropolitanData = useSelector((state: RootState) => state.metropolitanData);
 
   useEffect(() => {
-    if (_.isEmpty(metropolitanData)) {
+      if (metropolitanData.dataTime === "") {
       // 전국 미세먼지 데이터가 스토어에 없으면, 데이터 요청.
       getMetropolitanData((data) => {
-        dispatch({ type: "SET_DATA", value: data[0] });
+        dispatch({ type: "SET_DATA", value: data });
       });
     }
   }, []);
 
   // 전국 지도의 해당 지역 수치에 맞는 이미지 반환.
-  function getRegionImg(region, value) {
+  function getRegionImg(region: string, value: number) {
     return `https://wjdguswns123.github.io/Finedust_Info/images/${region + getPM10State(value)}.png`;
   }
 
   // 전국 지도의 해당 지역 그리기.
-  function drawRegion(region, name, value) {
+  function drawRegion(region: string, name: string, value: number) {
     return (
       <div>
         <img className={`map-image ${region}`} src={getRegionImg(region, value)}></img>
         <div className={`map-banner ${region}`}>
           <div className="region-name">{name}</div>
-          <PMValue $state={getPM10State(value)} className="pm-value">{value}</PMValue>
+          <PMValue state={getPM10State(value)} className="pm-value">{value}</PMValue>
         </div>
       </div>
     );
@@ -62,9 +63,9 @@ const WholeCountryPage = () => {
 
 export default WholeCountryPage;
 
-const PMValue = styled.div`
+const PMValue = styled.div<{ state: number }>`
   background-color: ${(props) => {
-    switch (props.$state) {
+    switch (props.state) {
       case 0:
         return "#24afff";
       case 1:

@@ -10,12 +10,14 @@ import { getLocalData } from './actions/fetchData';
 import { getMyRegion, setMyRegion } from './datas/localStorageDatas';
 import { getInitMyRegion } from './utils';
 import { Route, Routes } from 'react-router-dom';
+import { LocalData } from "./types";
+import { RootState } from "./reducers";
 
 function App() {
   const [currentTab, SetCurrentTab] = useState(0);
 
   const dispatch = useDispatch();
-  const localDatas = useSelector(state => state.localData);
+  const localDatas = useSelector((state: RootState) => state.localData);
 
   useEffect(() => {
     // 내 지역으로 설정한 지역의 데이터 받아오기.
@@ -25,7 +27,7 @@ function App() {
       myRegion = getInitMyRegion();
       setMyRegion(myRegion.metro, myRegion.local);
     }
-    const data = localDatas.find(data => data.sidoName === myRegion.metro && data.cityName === myRegion.local);
+    const data = localDatas.find((data: LocalData) => data.sidoName === myRegion.metro && data.cityName === myRegion.local);
 
     if (_.isEmpty(data)) {
       getLocalData(myRegion.metro, (data) => {

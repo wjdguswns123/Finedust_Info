@@ -1,5 +1,5 @@
 // pm10 미세먼지 수치의 등급 분류.
-export function getPM10State(value) {
+export function getPM10State(value: number) {
   if(value <= 30)
   {
     return 0;
@@ -24,7 +24,7 @@ export function getInitMyRegion() {
 }
 
 // 날짜 문자열 객체로 분리.
-export function stringToDate(text) {
+export function stringToDate(text: string) {
   const temp1 = text.split(" ");
   const date = temp1[0].split("-");
   const time = temp1[1].split(":");
@@ -40,16 +40,16 @@ export function stringToDate(text) {
   return dateTime; 
 }
 
-export function isCurrentHour(dateTime) {
-  const now = new Date();
-  console.log(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours());
-  if(now.getFullYear() === dateTime.year 
-    && now.getMonth() === dateTime.month 
-    && now.getDate() === dateTime.date
-    && now.getHours() === dateTime.hour)
-  {
-    return true;
-  }
+// export function isCurrentHour(dateTime) {
+//   const now = new Date();
+//   console.log(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours());
+//   if(now.getFullYear() === dateTime.year 
+//     && now.getMonth() === dateTime.month 
+//     && now.getDate() === dateTime.date
+//     && now.getHours() === dateTime.hour)
+//   {
+//     return true;
+//   }
 
-  return false;
-}
+//   return false;
+// }

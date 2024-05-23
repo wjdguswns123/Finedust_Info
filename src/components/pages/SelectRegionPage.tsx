@@ -8,6 +8,8 @@ import styled from 'styled-components';
 import { getPM10State } from '../../utils';
 
 import './SelectRegionPage.css';
+import { LocalData } from '../../types';
+import { RootState } from '../../reducers';
 
 // 현재 선택 지역 미세먼지 정보 출력.
 function SelectRegionPage() {
@@ -15,14 +17,14 @@ function SelectRegionPage() {
   const [baseRegioned, SetbaseRegioned] = useState(false);
 
   const dispatch = useDispatch();
-  const currentLocalRegion = useSelector(state => state.currentLocalRegion);
-  const localDatas = useSelector(state => state.localData);
+  const currentLocalRegion = useSelector((state: RootState) => state.currentLocalRegion);
+  const localDatas = useSelector((state: RootState) => state.localData);
 
   useEffect(() => {
     // 현재 선택 지역이 없으면, 내 지역 정보 보기.
-    if (_.isEmpty(currentLocalRegion)) {
+      if (currentLocalRegion.dataTime === "") {
       const myRegion = getMyRegion();
-      const data = localDatas.find(data => data.sidoName === myRegion.metro && data.cityName === myRegion.local);
+      const data = localDatas.find((data: LocalData) => data.sidoName === myRegion.metro && data.cityName === myRegion.local);
       dispatch({ type: "SELECT_REGION", value: data });
     }
   }, []);
@@ -37,13 +39,13 @@ function SelectRegionPage() {
       height: "+=15",
       y: "-=18",
       repeat: -1,
-      yoyo: 1,
+      yoyo: true,
     });
 
     gsap.to(state3CloudRef.current, 2, {
       scale: 1.5,
       repeat: -1,
-      yoyo: 1,
+      yoyo: true,
     });
 
     gsap.to(state4SmogRef.current, 5, {
@@ -82,10 +84,10 @@ function SelectRegionPage() {
       break;
   }
 
-  const sunRef = useRef();
-  const carRef = useRef();
-  const state3CloudRef = useRef();
-  const state4SmogRef = useRef();
+  const sunRef = useRef<HTMLImageElement>(null);
+  const carRef = useRef<HTMLImageElement>(null);
+  const state3CloudRef = useRef<HTMLImageElement>(null);
+  const state4SmogRef = useRef<HTMLImageElement>(null);
   function drawStateImage() {
     switch (state) {
       case 0:
@@ -121,21 +123,21 @@ function SelectRegionPage() {
 
   return (
     <div>
-      <BackgroundColor $state={state} className="select-region-background">
+      <BackgroundColor state={state} className="select-region-background">
         <span className="select-region-name">{currentLocalRegion.cityName}</span>
         <span className="select-region-value">{currentLocalRegion.pm10Value}</span>
-        <StateImage alt="">
+        <StateImage>
           {drawStateImage()}
         </StateImage>
         <span className="select-region-state-text">{stateText}</span>
         <div className="button-group">
-          <BookmarkButton $bookmarked={isBookmarked} onClick={() => {
+          <BookmarkButton bookmarked={isBookmarked} onClick={() => {
             setBookmark(!bookmarked, currentLocalRegion.sidoName, currentLocalRegion.cityName);
             SetBookmarked(!bookmarked);
           }}>
             <BookmarkButtonImage className="material-symbols-outlined bookmark-star">kid_star</BookmarkButtonImage>
           </BookmarkButton>
-          <MyRegionButton $myRegion={isMyRegion} className="base-button" onClick={() => {
+          <MyRegionButton myRegion={isMyRegion} className="base-button" onClick={() => {
             if (!isMyRegion) {
               setMyRegion(currentLocalRegion.sidoName, currentLocalRegion.cityName);
               SetbaseRegioned(true);
@@ -150,9 +152,9 @@ function SelectRegionPage() {
 export default SelectRegionPage;
 
 // 선택한 지역에 따른 배경 색 설정.
-const BackgroundColor = styled.div`
+const BackgroundColor = styled.div<{ state: number }>`
   background-image: ${(props) => {
-    switch (props.$state) {
+    switch (props.state) {
       case 0:
         return "linear-gradient(to top, #71dfff, #def1fd)";
       case 1:
@@ -173,14 +175,14 @@ const StateImage = styled.div`
 `;
 
 // 즐겨찾기 버튼.
-const BookmarkButton = styled.button`
+const BookmarkButton = styled.button<{ bookmarked: boolean }>`
   margin-right: 10px;
 
   width: 150px;
   height: 60px;
 
-  background-color: ${props => props.$bookmarked ? "#fde69b" : "#fff"};
-  border: 5px solid ${props => props.$bookmarked ? "#6f4d12" : "#777"};
+  background-color: ${props => props.bookmarked ? "#fde69b" : "#fff"};
+  border: 5px solid ${props => props.bookmarked ? "#6f4d12" : "#777"};
   border-radius: 8px;
 `;
 
@@ -191,7 +193,7 @@ const BookmarkButtonImage = styled.span`
 `;
 
 // 내 지역 버튼.
-const MyRegionButton = styled.button`
+const MyRegionButton = styled.button<{ myRegion: boolean }>`
   margin-left: 10px;
 
   width: 150px;
@@ -201,7 +203,7 @@ const MyRegionButton = styled.button`
   font-weight: 700;
   color: #333;
 
-  background-color: ${props => props.$myRegion ? "#fde69b" : "#fff"};
-  border: 5px solid ${props => props.$myRegion ? "#6f4d12" : "#777"};
+  background-color: ${props => props.myRegion ? "#fde69b" : "#fff"};
+  border: 5px solid ${props => props.myRegion ? "#6f4d12" : "#777"};
   border-radius: 8px;
 `;
