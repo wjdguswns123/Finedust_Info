@@ -22,7 +22,7 @@ function App() {
   useEffect(() => {
     // 내 지역으로 설정한 지역의 데이터 받아오기.
     let myRegion = getMyRegion();
-    if (myRegion === null) {
+    if (myRegion === null || myRegion.local === "") {
       // 로컬에 저장된 내 지역이 아직 없을 때, 임의로 지정.
       myRegion = getInitMyRegion();
       setMyRegion(myRegion.metro, myRegion.local);
